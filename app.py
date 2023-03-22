@@ -1,11 +1,12 @@
 from flask import Flask, render_template
+from werkzeug.security import generate_password_hash
 
 from routes import account
-
 from models.User import User, Base
 from db import engine, sess
 
 app = Flask(__name__)
+
 app.register_blueprint(account.account_app, url_prefix="/account")
 
 
@@ -22,7 +23,7 @@ if __name__ == "__main__":
         user = User(
             id=1,
             username="user01",
-            password="1234"
+            password=generate_password_hash("1234")
         )
         sess.add(user)
         sess.commit()
