@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="shortcut icon" href="/static/media/flask-icon.png" type="image/png">
+    <script src="/static/js/app.js"></script>
+</head>
+<body>
+
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

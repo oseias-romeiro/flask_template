@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{% block title %}Sing in{% endblock %}</h2>
+
+    <form method="post">
+        <label>Username</label>
+        <input type="text" name="username">
+        <br>
+        <label>Password:</label>
+        <input type="password" name="password">
+        <br><br>
+        <button type="submit">Login</button>
+        <a href="/">
+            <button type="button" >Cancel</button>
+        </a>
+    </form>
+{% endblock %}
