@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{% block title %}Wellcome{% endblock %} {{ username }}</h2>
+
+    <a href="/account/logout">
+        <button>Logout</button>
+    </a>
+{% endblock %}

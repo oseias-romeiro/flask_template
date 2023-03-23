@@ -8,6 +8,8 @@ from db import engine, sess
 app = Flask(__name__)
 app.secret_key = "s3cr3t"
 
+
+# routes projects
 app.register_blueprint(account.account_app, url_prefix="/account")
 
 

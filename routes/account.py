@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import login_user, logout_user, login_required
 
 from db import sess
 from models.User import User
@@ -17,14 +18,16 @@ def sign_in():
         form_username = request.form.get("username")
         form_password = request.form.get("password")
 
-        res = sess.query(User).filter_by(
+        user = sess.query(User).filter_by(
             username=form_username
         ).first()
 
-        if res and check_password_hash(res.password, form_password):
-            return "Success"
+        if user and check_password_hash(user.password, form_password):
+            #login_user(user)
+            return redirect(url_for("account_app.home"))
         else:
-            return "failed"
+            flash("Incorrect username/password", "failed")
+            return redirect(url_for("account_app.sign_in"))
 
 
 @account_app.route("/sign_up", methods=["GET", "POST"])
@@ -50,8 +53,20 @@ def sign_up():
 
             flash("User created", "success")
 
-            return redirect(url_for("index"))
+            return redirect(url_for("account_app.sign_in"))
         except:
             flash("Invalid inputs", "failed")
             return redirect(url_for("account_app.sign_up"))
 
+
+@account_app.route("/home", methods=["GET"])
+#@login_required
+def home():
+    return render_template("account/home.html", username="")
+
+
+@account_app.route("/home", methods=["GET"])
+#@login_required
+def log_out():
+    logout_user()
+    return redirect(url_for('login'))
