@@ -4,15 +4,16 @@
     <h2>{% block title %}Sing in{% endblock %}</h2>
 
     <form method="post">
-        <label>Username</label>
-        <input type="text" name="username">
+        <label>Username</label><br>
+        <input type="text" name="username"><br>
+        <label>Password:</label><br>
+        <input type="password" name="password"><br>
         <br>
-        <label>Password:</label>
-        <input type="password" name="password">
-        <br><br>
         <button type="submit">Login</button>
         <a href="/">
             <button type="button" >Cancel</button>
         </a>
+        <br>
+        <a href="/account/sign_up">Create account</a>
     </form>
 {% endblock %}

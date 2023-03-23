@@ -6,6 +6,7 @@ from models.User import User, Base
 from db import engine, sess
 
 app = Flask(__name__)
+app.secret_key = "s3cr3t"
 
 app.register_blueprint(account.account_app, url_prefix="/account")
 

@@ -3,3 +3,28 @@ body {
     text-align: center;
     font-family: "Times New Roman", Times, serif;
 }
+
+.alert {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.failed {
+    background-color: #ffdddd;
+}
+.success {
+    background-color: #ddffdd;
+}
+.btn-close {
+    cursor: pointer;
+    float: right;
+    font-size: 1.5rem;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: solid gray 1px;
+}
+
+input {
+    min-width: 300px;
+}
+
