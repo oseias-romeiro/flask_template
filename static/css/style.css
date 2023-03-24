@@ -28,3 +28,7 @@ input {
     min-width: 300px;
 }
 
+button {
+    min-height: 30px;
+}
+
