@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, flash, url_for
+from flask import Blueprint, render_template, request, redirect, flash, url_for, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, logout_user, login_required
 
@@ -23,7 +23,8 @@ def sign_in():
         ).first()
 
         if user and check_password_hash(user.password, form_password):
-            #login_user(user)
+            login_user(user)
+            session['username'] = user.username
             return redirect(url_for("account_app.home"))
         else:
             flash("Incorrect username/password", "failed")
@@ -60,13 +61,15 @@ def sign_up():
 
 
 @account_app.route("/home", methods=["GET"])
-#@login_required
+@login_required
 def home():
-    return render_template("account/home.html", username="")
+    username = session.get("username")
+    return render_template("account/home.html", username=username)
 
 
-@account_app.route("/home", methods=["GET"])
-#@login_required
+@account_app.route("/logout", methods=["GET"])
+@login_required
 def log_out():
     logout_user()
-    return redirect(url_for('login'))
+    flash("Logging out", "success")
+    return redirect(url_for("account_app.sign_in"))
