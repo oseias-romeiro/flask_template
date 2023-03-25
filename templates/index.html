@@ -3,4 +3,8 @@
 {% block content %}
     <h2>{% block title %}Flask template{% endblock %}</h2>
     <a href="/account/sign_in" >Sign in</a>
+
+    {% if user_authed %}
+    <a href="/account/home" style="margin-left: 10px;">Home</a>
+    {% endif %}
 {% endblock %}

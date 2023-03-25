@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, flash, url_for, session
+from flask import Blueprint, render_template, request, redirect, flash, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 from db import Session
 from models.User import User
@@ -25,7 +25,6 @@ def sign_in():
 
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
-            session['username'] = user.username
             return redirect(url_for("account_app.home"))
         else:
             flash("Incorrect username/password", "failed")
@@ -69,9 +68,59 @@ def sign_up():
 @account_app.route("/home", methods=["GET"])
 @login_required
 def home():
-    username = session.get("username")
-    return render_template("account/home.html", username=username)
+    sess = Session()
+    del_user = request.args.get("del")
 
+    if del_user:
+        user = sess.query(User).filter_by(id=del_user).first()
+        sess.delete(user)
+        sess.commit()
+
+    users = sess.query(User).limit(10).all()
+    sess.close()
+
+    return render_template("account/home.html", current_user=current_user, users=users)
+
+
+@account_app.route("/profile", methods=["GET", "POST"])
+@login_required
+def profile():
+    form = SignUpForm()
+    if request.method == "GET":
+        form.username.data = current_user.username
+
+        return render_template("account/profile.html", form=form)
+
+    if form.validate_on_submit():
+        try:
+            if form.password1.data != form.password2.data and valid_pw(form.password1.data):
+                raise Exception
+
+            sess = Session()
+
+            user = sess.query(User).filter_by(id=current_user.id).first()
+            sess.delete(user)
+            sess.commit()
+
+            user = User(
+                id=current_user.id,
+                username=form.username.data,
+                password=generate_password_hash(form.password1.data)
+            )
+            sess.add(user)
+            sess.commit()
+
+            sess.close()
+
+            flash("User edited", "success")
+
+            return redirect(url_for("account_app.home"))
+        except:
+            flash("Invalid inputs", "failed")
+            return redirect(url_for("account_app.profile"))
+    else:
+        flash("Invalid security token", "failed")
+        return redirect(url_for("account_app.profile"))
 
 @account_app.route("/logout", methods=["GET"])
 @login_required

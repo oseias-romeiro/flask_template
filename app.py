@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash
 from werkzeug.security import generate_password_hash
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 
 from routes import account
 from models.User import User, Base
@@ -26,7 +26,7 @@ def load_user(user):
 
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return render_template("index.html", user_authed=current_user.is_authenticated)
 
 
 @app.errorhandler(401)
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # run flask app
     app.run(
         host="0.0.0.0",
-        port=80
+        port=5000
     )
 
 

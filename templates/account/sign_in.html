@@ -3,7 +3,7 @@
 {% block content %}
     <h2>{% block title %}Sing in{% endblock %}</h2>
     <br>
-    <form method="post">
+    <form method="post" autocomplete="off">
         {{ form.csrf_token }}
 
         {{ form.username.label }}<br>
@@ -12,9 +12,9 @@
         {{ form.password.label }}<br>
         {{ form.password }}<br>
         <br>
-        <button type="submit">Login</button>
+        <button class="btn btn-dark" type="submit">Login</button>
         <a href="/">
-            <button type="button" class="btn-cancel">Cancel</button>
+            <button class="btn btn-secondary" type="button" class="btn-cancel">Cancel</button>
         </a>
         <br>
         <a href="/account/sign_up">Create account</a>

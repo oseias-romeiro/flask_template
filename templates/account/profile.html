@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{% block title %}Sing up{% endblock %}</h2>
+    <h2>{% block title %}Edit{% endblock %} profile</h2>
     <br>
     <form method="post" autocomplete="off">
         {{ form.csrf_token }}
@@ -15,8 +15,8 @@
         {{ form.password2.label }}<br>
         {{ form.password2 }}<br>
         <br>
-        <button class="btn btn-dark" type="submit">Sign up</button>
-        <a href="/account/sign_in">
+        <button class="btn btn-dark" type="submit">Edit</button>
+        <a href="/account/home">
             <button class="btn btn-secondary" type="button" class="btn-cancel">Cancel</button>
         </a>
     </form>
