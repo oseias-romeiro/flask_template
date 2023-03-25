@@ -2,7 +2,7 @@
 
 {% block content %}
     <h2>{% block title %}Sing up{% endblock %}</h2>
-
+    <br>
     <form method="post">
         <label>Username:</label><br>
         <input type="text" name="username"><br>
@@ -13,7 +13,7 @@
         <br>
         <button type="submit">Sign up</button>
         <a href="/account/sign_in">
-            <button type="button" >Cancel</button>
+            <button type="button" class="btn-cancel">Cancel</button>
         </a>
     </form>
 
