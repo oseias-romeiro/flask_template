@@ -4,12 +4,16 @@
     <h2>{% block title %}Sing up{% endblock %}</h2>
     <br>
     <form method="post">
-        <label>Username:</label><br>
-        <input type="text" name="username"><br>
-        <label>Password:</label><br>
-        <input type="password" name="password1"><br>
-        <label>Retype password:</label><br>
-        <input type="password" name="password2"><br>
+        {{ form.csrf_token }}
+
+        {{ form.username.label }}<br>
+        {{ form.username }}<br>
+
+        {{ form.password1.label }}<br>
+        {{ form.password1 }}<br>
+
+        {{ form.password2.label }}<br>
+        {{ form.password2 }}<br>
         <br>
         <button type="submit">Sign up</button>
         <a href="/account/sign_in">

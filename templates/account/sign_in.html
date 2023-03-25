@@ -4,10 +4,13 @@
     <h2>{% block title %}Sing in{% endblock %}</h2>
     <br>
     <form method="post">
-        <label>Username</label><br>
-        <input type="text" name="username"><br>
-        <label>Password:</label><br>
-        <input type="password" name="password"><br>
+        {{ form.csrf_token }}
+
+        {{ form.username.label }}<br>
+        {{ form.username }}<br>
+
+        {{ form.password.label }}<br>
+        {{ form.password }}<br>
         <br>
         <button type="submit">Login</button>
         <a href="/">

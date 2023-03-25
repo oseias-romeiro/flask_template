@@ -5,49 +5,49 @@ from flask_login import login_user, logout_user, login_required
 from db import sess
 from models.User import User
 from help.validators import valid_pw
+from forms.LoginForm import SignInForm, SignUpForm
 
 account_app = Blueprint("account_app", __name__)
 
 
 @account_app.route("/sign_in", methods=["GET", "POST"])
 def sign_in():
+    form = SignInForm()
     if request.method == "GET":
-        return render_template("account/sign_in.html")
+        return render_template("account/sign_in.html", form=form)
 
-    elif request.method == "POST":
-        form_username = request.form.get("username")
-        form_password = request.form.get("password")
+    if form.validate_on_submit():
 
         user = sess.query(User).filter_by(
-            username=form_username
+            username=form.username.data
         ).first()
 
-        if user and check_password_hash(user.password, form_password):
+        if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             session['username'] = user.username
             return redirect(url_for("account_app.home"))
         else:
             flash("Incorrect username/password", "failed")
             return redirect(url_for("account_app.sign_in"))
+    else:
+        flash("Invalid security token", "failed")
+        return redirect(url_for("account_app.sign_in"))
 
 
 @account_app.route("/sign_up", methods=["GET", "POST"])
 def sign_up():
+    form = SignUpForm()
     if request.method == "GET":
-        return render_template("account/sign_up.html")
+        return render_template("account/sign_up.html", form=form)
 
-    elif request.method == "POST":
-        form_username = request.form.get("username")
-        form_password1 = request.form.get("password1")
-        form_password2 = request.form.get("password2")
-
+    if form.validate_on_submit():
         try:
-            if form_password1 != form_password2 and valid_pw(form_password1):
+            if form.password1.data != form.password2.data and valid_pw(form.password1.data):
                 raise Exception
 
             user = User(
-                username=form_username,
-                password=generate_password_hash(form_password1)
+                username=form.username.data,
+                password=generate_password_hash(form.password1.data)
             )
             sess.add(user)
             sess.commit()
@@ -58,6 +58,9 @@ def sign_up():
         except:
             flash("Invalid inputs", "failed")
             return redirect(url_for("account_app.sign_up"))
+    else:
+        flash("Invalid security token", "failed")
+        return redirect(url_for("account_app.sign_in"))
 
 
 @account_app.route("/home", methods=["GET"])
