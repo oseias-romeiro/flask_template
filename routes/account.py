@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, flash, url_for,
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, logout_user, login_required
 
-from db import sess
+from db import Session
 from models.User import User
 from help.validators import valid_pw
 from forms.LoginForm import SignInForm, SignUpForm
@@ -17,10 +17,11 @@ def sign_in():
         return render_template("account/sign_in.html", form=form)
 
     if form.validate_on_submit():
-
+        sess = Session()
         user = sess.query(User).filter_by(
             username=form.username.data
         ).first()
+        sess.close()
 
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
@@ -49,8 +50,10 @@ def sign_up():
                 username=form.username.data,
                 password=generate_password_hash(form.password1.data)
             )
+            sess = Session()
             sess.add(user)
             sess.commit()
+            sess.close()
 
             flash("User created", "success")
 

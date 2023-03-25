@@ -4,7 +4,7 @@ from flask_login import LoginManager
 
 from routes import account
 from models.User import User, Base
-from db import engine, sess
+from db import engine, Session
 
 app = Flask(__name__)
 app.secret_key = "s3cr3t"
@@ -16,9 +16,12 @@ app.register_blueprint(account.account_app, url_prefix="/account")
 
 @login_manager.user_loader
 def load_user(user):
-    return sess.query(User).filter_by(
+    sess = Session()
+    res = sess.query(User).filter_by(
         id=user
     ).first()
+    sess.close()
+    return res
 
 
 @app.route("/", methods=["GET"])
@@ -38,6 +41,7 @@ def custom_404(error):
 
 
 def create_admin():
+    sess = Session()
     try:
         user = User(
             id=1,
@@ -49,6 +53,7 @@ def create_admin():
     except:
         del user
         sess.rollback()
+    sess.close()
 
 
 if __name__ == "__main__":

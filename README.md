@@ -56,10 +56,16 @@ The directory structure for this template is as follows:
 5. Modify the routes in routes/account.py to fit your needs. You can also create additional blueprint modules if necessary.
 6. Run the application by running the command python app.py in your terminal.
 
-### Run tests
+## Run
 
+### Tests
    ```shell
    python3 -m unittest discover -s tests
+   ```
+
+### Server
+   ```shell
+   python3 app.py
    ```
 
 ## Features
