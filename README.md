@@ -1,7 +1,10 @@
 # Basic Flask Template
 
 This is a template for a Flask web application with blueprints, authentication management, and a SQLite database. It provides a basic structure and functionality that can be customized to fit your specific needs.
-Directory Structure
+
+- Try: [flask_template.hoshea.repl.co](https://flask_template.hoshea.repl.co/)
+
+## Directory Structure
 
 The directory structure for this template is as follows:
 
