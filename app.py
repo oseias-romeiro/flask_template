@@ -1,16 +1,20 @@
 from flask import Flask, render_template, redirect, url_for, flash
-from werkzeug.security import generate_password_hash
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap5
 from flask_bcrypt import Bcrypt
 from flask_wtf.csrf import CSRFProtect
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-app.secret_key = "s3cr3t"
+from config import get_config
 
+app = Flask(__name__)
+
+# configs
+config = get_config()
+app.config.from_object(config)
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+#app.secret_key = "s3cr3t"
 
 # extensions
 db = SQLAlchemy(app)
@@ -45,5 +49,5 @@ def custom_401(error):
 
 @app.errorhandler(404)
 def custom_404(error):
-    return render_template('error/404.jinja2')
+    return render_template('error/404.jinja2', error=error)
 

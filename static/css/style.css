@@ -1,27 +1,11 @@
 
 body {
-    text-align: center;
     font-family: "Times New Roman", Times, serif;
 }
 
-
-.failed {
-    background-color: #ffdddd;
-}
-.success {
-    background-color: #ddffdd;
-}
 .btn-close {
     cursor: pointer;
     float: right;
-}
-
-input {
-    min-width: 300px;
-}
-
-.container {
-    margin-top: 10%;
 }
 
 a {

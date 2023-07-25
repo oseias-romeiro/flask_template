@@ -2,23 +2,25 @@
 {% from 'bootstrap5/form.html' import render_hidden_errors %}
 
 {% block content %}
+
     <h2>{% block title %}Sing in{% endblock %}</h2>
     <br>
     <form method="post" autocomplete="off">
         {{ render_hidden_errors(form) }}
         {{ form.csrf_token }}
 
-        {{ form.username.label }}<br>
-        {{ form.username }}<br>
+        {{ form.username.label(class="d-block text-start") }}
+        {{ form.username(class="form-control") }}<br>
 
-        {{ form.password.label }}<br>
-        {{ form.password }}<br>
+        {{ form.password.label(class="d-block text-start") }}
+        {{ form.password(class="form-control") }}<br>
         <br>
-        <button class="btn btn-dark" type="submit">Login</button>
+        <button class="btn btn-outline-dark" type="submit">Login</button>
         <a href="/">
-            <button class="btn btn-secondary" type="button" class="btn-cancel">Cancel</button>
+            <button class="btn btn-outline-secondary" type="button" class="btn-cancel">Cancel</button>
         </a>
         <br>
         <a href="{{ url_for('account_app.sign_up') }}">Create account</a>
     </form>
+    
 {% endblock %}

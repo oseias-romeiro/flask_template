@@ -6,21 +6,21 @@
     <form method="post" autocomplete="off">
         {{ form.csrf_token }}
 
-        {{ form.username.label }}<br>
-        {{ form.username }}<br>
+        {{ form.username.label(class="d-block text-start") }}
+        {{ form.username(class="form-control") }}<br>
 
-        {{ form.email.label }}<br>
-        {{ form.email }}<br>
+        {{ form.email.label(class="d-block text-start") }}
+        {{ form.email(class="form-control") }}<br>
 
-        {{ form.password.label }}<br>
-        {{ form.password }}<br>
+        {{ form.password.label(class="d-block text-start") }}
+        {{ form.password(class="form-control") }}<br>
 
-        {{ form.confirm.label }}<br>
-        {{ form.confirm }}<br>
+        {{ form.confirm.label(class="d-block text-start") }}
+        {{ form.confirm(class="form-control") }}<br>
         <br>
-        <button class="btn btn-dark" type="submit">Edit</button>
+        <button class="btn btn-outline-dark" type="submit">Edit</button>
         <a href="/account/home">
-            <button class="btn btn-secondary" type="button" class="btn-cancel">Cancel</button>
+            <button class="btn btn-outline-secondary" type="button" class="btn-cancel">Cancel</button>
         </a>
     </form>
 

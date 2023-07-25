@@ -25,10 +25,10 @@ def sign_in():
             login_user(user)
             return redirect(url_for("account_app.home"))
         else:
-            flash("Incorrect username/password", "failed")
+            flash("Incorrect username/password", "danger")
             return redirect(url_for("account_app.sign_in_view"))
     else:
-        flash(list(form.errors.items())[0][1][0], 'failed')
+        flash(list(form.errors.items())[0][1][0], 'danger')
         return redirect(url_for("account_app.sign_in_view"))
 
 @account_app.route("/sign_up", methods=["GET"])
@@ -52,10 +52,10 @@ def sign_up():
             flash("User created", "success")
             return redirect(url_for("account_app.sign_in"))
         except:
-            flash("Invalid inputs", "failed")
+            flash("Invalid inputs", "danger")
             return redirect(url_for("account_app.sign_up_view"))
     else:
-        flash(list(form.errors.items())[0][1][0], 'failed')
+        flash(list(form.errors.items())[0][1][0], 'danger')
         return redirect(url_for("account_app.sign_up_view"))
 
 @account_app.route("/home", methods=["GET"])
@@ -97,10 +97,10 @@ def profile():
             flash("User edited", "success")
             return redirect(url_for("account_app.home"))
         except:
-            flash("Invalid inputs", "failed")
+            flash("Invalid inputs", "danger")
             return redirect(url_for("account_app.profile_view"))
     else:
-        flash(list(form.errors.items())[0][1][0], 'failed')
+        flash(list(form.errors.items())[0][1][0], 'danger')
         return redirect(url_for("account_app.profile_view"))
 
 @account_app.route("/logout", methods=["GET"])

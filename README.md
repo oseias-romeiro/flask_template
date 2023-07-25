@@ -59,6 +59,14 @@ The directory structure for this template is as follows:
 5. Modify the routes in routes/account.py to fit your needs. You can also create additional blueprint modules if necessary.
 6. Run the application by running the command python app.py in your terminal.
 
+## Setup
+    ```shell
+    flask db init
+    flask db migrate -m "init"
+    flask db upgrade
+    flask seed users
+    ```
+
 ## Run
 
 ### Tests
@@ -68,7 +76,7 @@ The directory structure for this template is as follows:
 
 ### Server
    ```shell
-   python3 app.py
+   flask run
    ```
 
 ## Features

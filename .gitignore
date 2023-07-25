@@ -1,6 +1,13 @@
+# IDEs
+**/.idea/
+**/.vscode/
+
+# python
 **/__pycache__
-.idea/
 
 # database
-instance/
+db.sqlite
 migrations/
+
+# secret
+.env
