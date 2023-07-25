@@ -10,14 +10,14 @@ The directory structure for this template is as follows:
 
 ```
 .
+├── auth
+│   └── loaders.py
 ├── app.py
-├── db.py
-├── help
-│   └── validators.py
+├── controller
+│   ├── account.py
+├── config.py
 ├── models
 │   └── User.py
-├── routes
-│   ├── account.py
 ├── static
 │   ├── css
 │   │   └── style.css
@@ -27,20 +27,20 @@ The directory structure for this template is as follows:
 │       └── flask-icon.png
 ├── templates
 │   ├── account
-│   │   ├── home.html
-│   │   ├── sign_in.html
-│   │   └── sign_up.html
-│   ├── base.html
-│   └── index.html
+│   │   ├── home.jinja2
+│   │   ├── sign_in.jinja2
+│   │   └── sign_up.jinja2
+│   ├── base.jinja2
+│   └── index.jinja2
 └── tests
     └── test_app.py
 ```
 
+- `auth`: contains modules to auth configuration
 - `app.py`: the main Flask application file.
-- `db.py`: contains functions for managing the SQLite database;
-- `help`: contains helper files such as validators.py for input validation;
+- `controller`: contains blueprint modules for different parts of the application such as account.py;
+- `config.py`: config server and database getting env variables;
 - `models`: contains database models such as User.py;
-- `routes`: contains blueprint modules for different parts of the application such as account.py;
 - `static`: contains static files such as CSS, JavaScript, and media files;
 - `templates`: contains Jinja2 templates used to render HTML pages;
 - `tests`: contains test files for your project. 
@@ -57,15 +57,17 @@ The directory structure for this template is as follows:
 3. Modify the configuration variables in app.py to fit your needs. For example, you may want to change the **SECRET_KEY** variable to a different value.
 4. Modify the database schema in models/User.py to fit your needs. You can also create additional models if necessary.
 5. Modify the routes in routes/account.py to fit your needs. You can also create additional blueprint modules if necessary.
-6. Run the application by running the command python app.py in your terminal.
+6. Setup database and use the seeds (see [Setup](#setup))
+7. Run the application by running the command `flask run` in your terminal.
 
 ## Setup
-    ```shell
-    flask db init
-    flask db migrate -m "init"
-    flask db upgrade
-    flask seed users
-    ```
+
+```shell
+flask db init
+flask db migrate -m "init"
+flask db upgrade
+flask seed users
+```
 
 ## Run
 
