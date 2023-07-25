@@ -1,3 +1,6 @@
-**/__pycache__/**
-.idea/**
-flask_template_db.sqlite
+**/__pycache__
+.idea/
+
+# database
+instance/
+migrations/

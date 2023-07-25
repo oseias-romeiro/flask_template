@@ -1,22 +1,27 @@
-{% extends "base.html" %}
+{% extends "base.jinja2" %}
+{% from 'bootstrap5/form.html' import render_hidden_errors %}
 
 {% block content %}
     <h2>{% block title %}Sing up{% endblock %}</h2>
     <br>
     <form method="post" autocomplete="off">
+        {{ render_hidden_errors(form) }}
         {{ form.csrf_token }}
 
         {{ form.username.label }}<br>
         {{ form.username }}<br>
 
-        {{ form.password1.label }}<br>
-        {{ form.password1 }}<br>
+        {{ form.email.label }}<br>
+        {{ form.email }}<br>
 
-        {{ form.password2.label }}<br>
-        {{ form.password2 }}<br>
+        {{ form.password.label }}<br>
+        {{ form.password }}<br>
+
+        {{ form.confirm.label }}<br>
+        {{ form.confirm }}<br>
         <br>
         <button class="btn btn-dark" type="submit">Sign up</button>
-        <a href="/account/sign_in">
+        <a href="{{ url_for('account_app.sign_in') }}">
             <button class="btn btn-secondary" type="button" class="btn-cancel">Cancel</button>
         </a>
     </form>

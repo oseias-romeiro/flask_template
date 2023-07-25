@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.jinja2" %}
 
 {% block content %}
     <h2>{% block title %}Edit{% endblock %} profile</h2>
@@ -9,11 +9,14 @@
         {{ form.username.label }}<br>
         {{ form.username }}<br>
 
-        {{ form.password1.label }}<br>
-        {{ form.password1 }}<br>
+        {{ form.email.label }}<br>
+        {{ form.email }}<br>
 
-        {{ form.password2.label }}<br>
-        {{ form.password2 }}<br>
+        {{ form.password.label }}<br>
+        {{ form.password }}<br>
+
+        {{ form.confirm.label }}<br>
+        {{ form.confirm }}<br>
         <br>
         <button class="btn btn-dark" type="submit">Edit</button>
         <a href="/account/home">

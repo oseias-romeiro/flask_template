@@ -1,0 +1,10 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+    <h2>{% block title %}Flask template{% endblock %}</h2>
+    <a href="{{ url_for('account_app.sign_in') }}" >Sign in</a>
+
+    {% if user_authed %}
+    <a href="{{ url_for('account_app.home') }}" style="margin-left: 10px;">Home</a>
+    {% endif %}
+{% endblock %}

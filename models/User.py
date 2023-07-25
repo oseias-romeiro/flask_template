@@ -1,16 +1,17 @@
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import declarative_base, mapped_column, Mapped
+from sqlalchemy import Integer, String
 from flask_login import UserMixin
 
-Base = declarative_base()
+from app import db
 
 
-class User(UserMixin, Base):
+class User(UserMixin, db.Model):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)
-    username = Column(String(80), nullable=False)
-    password = Column(String(80), nullable=False)
+    id:Mapped[int] = mapped_column(Integer, primary_key=True)
+    username = mapped_column(String(80), nullable=False, unique=True)
+    email = mapped_column(String(80), nullable=False, unique=True)
+    password = mapped_column(String(80), nullable=False)
 
     def __repr__(self):
-        return "username: %r" % self.username
+        return f"user ({self.id}, {self.username})"
