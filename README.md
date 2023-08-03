@@ -81,6 +81,13 @@ flask seed users
    flask run
    ```
 
+
+## Docker
+```shell
+docker build . -t flask_template
+docker run -d --name flask_template -p 5000:80 flask_template
+```
+
 ## Features
 
 ### Blueprints

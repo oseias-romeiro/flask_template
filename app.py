@@ -13,8 +13,7 @@ app = Flask(__name__)
 # configs
 config = get_config()
 app.config.from_object(config)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-#app.secret_key = "s3cr3t"
+app.secret_key = config.SECRET_KEY
 
 # extensions
 db = SQLAlchemy(app)
