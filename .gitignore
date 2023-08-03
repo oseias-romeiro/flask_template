@@ -5,6 +5,10 @@
 # python
 **/__pycache__
 
+# database
+db.sqlite
+migrations/
+
 # secret
 .env
 
