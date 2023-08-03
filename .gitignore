@@ -8,3 +8,7 @@
 # database
 db.sqlite
 migrations/
+
+# secret
+.env
+

@@ -1,5 +1,8 @@
 FROM python
 
+ENV APP_ENV=development
+ENV SECRET_KEY=s3cr3t 
+
 WORKDIR /usr/src/app
 
 COPY requirements.txt ./
