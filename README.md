@@ -66,8 +66,21 @@ The directory structure for this template is as follows:
 flask db init
 flask db migrate -m "init"
 flask db upgrade
+```
+
+### Seeds
+Insert data in database, defined in [seed.py](./seed.py)
+
+|username|email|password|
+|--- |--- |--- |
+john|john@example.com|1234|
+|jane|jane@example.com|1234|
+|bob|bob@example.com|1234|
+
+```shell
 flask seed users
 ```
+
 
 ## Run
 
