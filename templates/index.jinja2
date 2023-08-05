@@ -4,7 +4,7 @@
 
     <h2>{% block title %}Flask template{% endblock %}</h2>
     <br>
-    <a href="{{ url_for('account_app.sign_in') }}" class="btn btn-outline-dark">Sign in</a>
+    <a href="{{ url_for('account_app.sign_in_view') }}" class="btn btn-outline-dark">Sign in</a>
 
     {% if user_authed %}
     <a href="{{ url_for('account_app.home') }}" style="margin-left: 10px;">Home</a>

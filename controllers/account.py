@@ -31,32 +31,31 @@ def sign_in():
         flash(list(form.errors.items())[0][1][0], 'danger')
         return redirect(url_for("account_app.sign_in_view"))
 
-@account_app.route("/sign_up", methods=["GET"])
-def sign_up_view():
-    form = SignUpForm()
-    return render_template("account/sign_up.jinja2", form=form)
-
-@account_app.route("/sign_up", methods=["POST"])
+@account_app.route("/sign_up", methods=["GET", "POST"])
 def sign_up():
     form = SignUpForm()
-    if form.validate_on_submit():
-        try:
-            user = User(
-                username=form.username.data,
-                email=form.email.data,
-                password=bcrypt.generate_password_hash(form.password.data)
-            )
-            db.session.add(user)
-            db.sess.commit()
 
-            flash("User created", "success")
-            return redirect(url_for("account_app.sign_in"))
-        except:
-            flash("Invalid inputs", "danger")
-            return redirect(url_for("account_app.sign_up_view"))
-    else:
-        flash(list(form.errors.items())[0][1][0], 'danger')
-        return redirect(url_for("account_app.sign_up_view"))
+    if request.method == "GET":
+        return render_template("account/sign_up.jinja2", form=form)
+
+    elif request.method == "POST":
+        if form.validate_on_submit():
+            try:
+                user = User(
+                    username=form.username.data,
+                    email=form.email.data,
+                    password=bcrypt.generate_password_hash(form.password.data)
+                )
+                db.session.add(user)
+                db.sess.commit()
+
+                flash("User created", "success")
+                return redirect(url_for("account_app.sign_in"))
+            except:
+                flash("Error persisting data", "danger")
+                return redirect(url_for("account_app.sign_up"))
+        else:
+            return render_template("account/sign_up.jinja2", form=form, errors=form.errors)
 
 @account_app.route("/home", methods=["GET"])
 @login_required
