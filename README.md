@@ -91,9 +91,10 @@ flask seed users
 
 ### Server
    ```shell
-   flask run
+   gunicorn -b 0.0.0.0:80 wsgi:app
    ```
 
+> Access [localhost](http://localhost)
 
 ## Docker
 ```shell

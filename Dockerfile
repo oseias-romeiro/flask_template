@@ -1,7 +1,7 @@
 FROM python
 
-ENV APP_ENV=development
-ENV SECRET_KEY=s3cr3t 
+ENV APP_ENV=
+ENV SECRET_KEY= 
 
 WORKDIR /usr/src/app
 
