@@ -8,7 +8,8 @@ from flask_wtf.csrf import CSRFProtect
 
 from config import get_config
 
-app = Flask(__name__)
+BASE_ROUTE = ""
+app = Flask(__name__, static_url_path=BASE_ROUTE+"/static")
 
 # configs
 config = get_config()
@@ -29,13 +30,13 @@ from cli_cmds import seed_cli
 from controllers import account
 
 # blueprints
-app.register_blueprint(account.account_app, url_prefix="/account")
+app.register_blueprint(account.account_app, url_prefix=BASE_ROUTE+"/account")
 
 # cli
 app.cli.add_command(seed_cli)
 
 
-@app.route("/", methods=["GET"])
+@app.route(BASE_ROUTE+"/", methods=["GET"])
 def index():
     return render_template("index.jinja2")
 

@@ -10,6 +10,6 @@
     <a href="{{ url_for('account_app.home') }}" style="margin-left: 10px;">Home</a>
     {% endif %}
     <br>
-    <img src="static/media/flask-logo.png" class="img-fluid" style="padding-top: 10%;">
+    <img src="{{ url_for('static', filename='media/flask-logo.png') }}" class="img-fluid" style="padding-top: 10%;">
     
 {% endblock %}

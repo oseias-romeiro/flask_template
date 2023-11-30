@@ -19,7 +19,7 @@
         {{ form.confirm(class="form-control") }}<br>
         <br>
         <button class="btn btn-outline-dark" type="submit">Edit</button>
-        <a href="/account/home">
+        <a href="{{ url_for('account_app.home') }}">
             <button class="btn btn-outline-secondary" type="button" class="btn-cancel">Cancel</button>
         </a>
     </form>

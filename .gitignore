@@ -4,6 +4,7 @@
 
 # python
 **/__pycache__
+venv/
 
 # database
 db.sqlite
