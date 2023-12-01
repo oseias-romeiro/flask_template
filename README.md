@@ -49,10 +49,10 @@ The directory structure for this template is as follows:
 
 1. Clone this repository or download the ZIP file and extract it to a directory of your choice.
 2. Install the required dependencies by running the command:
-
     ```shell
-    pip install -r requirements.txt
+    pip install -r requirements-{environment}.txt
     ```
+    > if environment is prd (production) it is setup to mysql database
 
 3. Modify the configuration variables in app.py to fit your needs. For example, you may want to change the **SECRET_KEY** variable to a different value.
 4. Modify the database schema in models/User.py to fit your needs. You can also create additional models if necessary.
@@ -90,9 +90,19 @@ flask seed users
    ```
 
 ### Server
-   ```shell
-   gunicorn -b 0.0.0.0:80 wsgi:app
-   ```
+
+- development environment
+
+```shell
+flask run
+```
+> Access [localhost:5000](http://localhost:5000)
+
+- production evironment
+
+```sh
+gunicorn -b 0.0.0.0:80 wsgi:app
+```
 
 > Access [localhost](http://localhost)
 
