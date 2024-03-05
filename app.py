@@ -14,7 +14,6 @@ app = Flask(__name__, static_url_path=BASE_ROUTE+"/static")
 # configs
 config = get_config()
 app.config.from_object(config)
-app.secret_key = config.SECRET_KEY
 
 # extensions
 db = SQLAlchemy(app)

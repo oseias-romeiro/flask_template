@@ -21,3 +21,17 @@ class SignUpForm(FlaskForm):
     ])
     confirm = PasswordField("Retype password")
 
+class ChangePasswordForm(FlaskForm):
+    old_password = PasswordField("Old Password", validators=[input_required()])
+    new_password = PasswordField("New Password", validators=[
+        input_required(),
+        equal_to('confirm', 'Passwords must match'),
+        regexp(
+            regex='^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$',
+            message='Password must contain at least 8 characteres and one digit, one uppercase letter ad one special symbol'
+        )
+    ])
+    confirm = PasswordField("Retype password")
+
+class ForgetPasswordForm(FlaskForm):
+    email = StringField("Email", validators=[input_required(), email('digit a valid email address')])

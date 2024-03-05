@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from flask_login import login_user, logout_user, login_required, current_user
-
+from datetime import datetime
 from app import db, bcrypt
 from models.User import User
-from forms.LoginForm import SignInForm, SignUpForm
+from forms.AuthForm import SignInForm, SignUpForm, ForgetPasswordForm
 
 account_app = Blueprint("account_app", __name__)
 
@@ -22,6 +22,8 @@ def sign_in():
         ).first()
 
         if user and bcrypt.check_password_hash(user.password, form.password.data):
+            user.lastLogin = datetime.now()
+            db.session.commit()
             login_user(user)
             return redirect(url_for("account_app.home"))
         else:
@@ -47,7 +49,7 @@ def sign_up():
                     password=bcrypt.generate_password_hash(form.password.data)
                 )
                 db.session.add(user)
-                db.sess.commit()
+                db.session.commit()
 
                 flash("User created", "success")
                 return redirect(url_for("account_app.sign_in"))
@@ -63,7 +65,7 @@ def home():
     del_user = request.args.get("del")
 
     if del_user:
-        user = db.session.query(User).filter_by(id=del_user).first()
+        user = db.session.query(User).filter_by(username=del_user).first()
         db.session.delete(user)
         db.session.commit()
 
@@ -91,6 +93,7 @@ def profile():
             user.username = form.username.data
             user.email = form.email.data
             user.password = bcrypt.generate_password_hash(form.password.data)
+            user.updateAt = datetime.now()
             db.session.commit()
 
             flash("User edited", "success")
@@ -101,6 +104,25 @@ def profile():
     else:
         flash(list(form.errors.items())[0][1][0], 'danger')
         return redirect(url_for("account_app.profile_view"))
+
+@account_app.route("/forgot_password", methods=["GET"])
+def forgot_password_view():
+    form = ForgetPasswordForm()
+    return render_template("account/forgot_password.jinja2", form=form)
+
+@account_app.route("/forgot_password", methods=["POST"])
+def forgot_password():
+    email = request.form.get("email")
+    
+    # verify email
+    user = db.session.query(User).filter_by(email=email).first()
+    if user:
+        flash("Email sent", "success")
+        return redirect(url_for("account_app.sign_in"))
+    else:
+        flash("Email not found", "danger")
+        return redirect(url_for("account_app.forget_password_view"))
+    
 
 @account_app.route("/logout", methods=["GET"])
 @login_required

@@ -23,7 +23,9 @@
                 <td>{{ u.id }}</td>
                 <td>{{ u.username }}</td>
                 <td>
-                    <a href='/account/home?del={{ u.id }}' class="btn btn-secondary text-white">&times;</button>
+                    {% if current_user.role == "ADMIN" && u.ROLE != "ADMIN" %}
+                    <a href='/account/home?del={{ u.username }}' class="btn btn-secondary text-white">&times;</button>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "flask-template"
+version = "0.1.0"
+description = ""
+authors = ["oseias-romeiro <oseiasromeirom@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^3.0.2"
+bootstrap-flask = "^2.3.3"
+flask-sqlalchemy = "^3.1.1"
+flask-login = "^0.6.3"
+flask-migrate = "^4.0.5"
+flask-wtf = "^1.2.1"
+gunicorn = "^21.2.0"
+email-validator = "^2.1.1"
+sqlalchemy = "^2.0.28"
+python-dotenv = "^1.0.1"
+wtforms = "^3.1.2"
+flask-bcrypt = "^1.0.1"
+pymysql = "^1.1.0"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.test-dependencies]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

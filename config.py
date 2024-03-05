@@ -13,11 +13,13 @@ class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")# mysql://user@localhost/foo
 
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(basedir, 'db.sqlite')}"
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(basedir, 'db.sqlite3')}"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_ECHO = True
 
 class TestingConfig(Config):
-    DATABASE_URI = 'sqlite:///:memory:'
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(basedir, 'db.test.sqlite3')}"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
 
 

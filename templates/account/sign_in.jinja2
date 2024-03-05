@@ -15,10 +15,12 @@
         {{ form.password.label(class="d-block text-start") }}
         {{ form.password(class="form-control") }}<br>
         <br>
-        <button class="btn btn-outline-dark" type="submit">Login</button>
+        <button class="btn btn-outline-dark w-25" type="submit">Login</button>
         <a href="{{ url_for('index') }}">
-            <button class="btn btn-outline-secondary" type="button" class="btn-cancel">Cancel</button>
+            <button class="btn btn-outline-secondary w-25" type="button" class="btn-cancel">Cancel</button>
         </a>
+        <br><br>
+        <a href="{{ url_for('account_app.forgot_password') }}">Forgot password</a>
         <br>
         <a href="{{ url_for('account_app.sign_up') }}">Create account</a>
     </form>

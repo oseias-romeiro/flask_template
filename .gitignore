@@ -5,11 +5,13 @@
 # python
 **/__pycache__
 venv/
+poetry.lock
 
 # database
-db.sqlite
+db.sqlite3
+db.test.sqlite3
 migrations/
 
 # secret
-.env
+*.env
 
