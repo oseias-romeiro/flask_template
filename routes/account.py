@@ -1,29 +1,27 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from flask_login import login_user, logout_user, login_required, current_user
-from datetime import datetime
-from app import db, bcrypt
-from models.User import User
+
+from models.User import Role
 from forms.AuthForm import SignInForm, SignUpForm, ForgetPasswordForm
+from controller.account import getUserByUsername, verifyPassword, updateLastLogin, createUser, deleteUser, getUsersAll, editUser, getUserByEmail
+from controller.wraps import admin_required
 
 account_app = Blueprint("account_app", __name__)
 
-@account_app.route("/sign_in", methods=["GET"])
+@account_app.route("/signin", methods=["GET"])
 def sign_in_view():
     form = SignInForm()
     return render_template("account/sign_in.jinja2", form=form)
 
-@account_app.route("/sign_in", methods=["POST"])
+@account_app.route("/signin", methods=["POST"])
 def sign_in():
     form = SignInForm()
 
     if form.validate_on_submit():
-        user = db.session.query(User).filter_by(
-            username=form.username.data
-        ).first()
+        user = getUserByUsername(form.username.data)
 
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            user.lastLogin = datetime.now()
-            db.session.commit()
+        if user and verifyPassword(user.password, form.password.data):
+            user = updateLastLogin(user)
             login_user(user)
             return redirect(url_for("account_app.home"))
         else:
@@ -33,7 +31,7 @@ def sign_in():
         flash(list(form.errors.items())[0][1][0], 'danger')
         return redirect(url_for("account_app.sign_in_view"))
 
-@account_app.route("/sign_up", methods=["GET", "POST"])
+@account_app.route("/create", methods=["GET", "POST"])
 def sign_up():
     form = SignUpForm()
 
@@ -43,13 +41,7 @@ def sign_up():
     elif request.method == "POST":
         if form.validate_on_submit():
             try:
-                user = User(
-                    username=form.username.data,
-                    email=form.email.data,
-                    password=bcrypt.generate_password_hash(form.password.data)
-                )
-                db.session.add(user)
-                db.session.commit()
+                createUser(form.username.data, form.email.data, form.password.data)
 
                 flash("User created", "success")
                 return redirect(url_for("account_app.sign_in"))
@@ -62,16 +54,24 @@ def sign_up():
 @account_app.route("/home", methods=["GET"])
 @login_required
 def home():
-    del_user = request.args.get("del")
+    users = getUsersAll()
+    return render_template("account/home.jinja2", current_user=current_user, users=users, role=Role)
 
-    if del_user:
-        user = db.session.query(User).filter_by(username=del_user).first()
-        db.session.delete(user)
-        db.session.commit()
+@account_app.route("/<username>/delete")
+@login_required
+@admin_required
+def delete_user_view(username):
+    return render_template("account/delete.jinja2", username=username)
 
-    users = db.session.query(User).limit(10).all()
-
-    return render_template("account/home.jinja2", current_user=current_user, users=users)
+@account_app.route("/<username>/delete", methods=["POST"])
+@login_required
+def delete_user(username):
+    if current_user.role == Role.ADMIN:
+        deleteUser(username)
+        flash("User deleted", "success")
+    else:
+        flash("Unauthorized", "danger")
+    return redirect(url_for("account_app.home"))
 
 @account_app.route("/profile", methods=["GET"])
 @login_required
@@ -89,12 +89,7 @@ def profile():
 
     if form.validate_on_submit():
         try:
-            user = db.session.query(User).filter_by(id=current_user.id).first()
-            user.username = form.username.data
-            user.email = form.email.data
-            user.password = bcrypt.generate_password_hash(form.password.data)
-            user.updateAt = datetime.now()
-            db.session.commit()
+            editUser(form.username.data, form.email.data, form.password.data)
 
             flash("User edited", "success")
             return redirect(url_for("account_app.home"))
@@ -115,7 +110,7 @@ def forgot_password():
     email = request.form.get("email")
     
     # verify email
-    user = db.session.query(User).filter_by(email=email).first()
+    user = getUserByEmail(email)
     if user:
         flash("Email sent", "success")
         return redirect(url_for("account_app.sign_in"))

@@ -16,15 +16,17 @@
         <tr>
             <th>Id</th>
             <th>Username</th>
-            <th>Action</th>
+            <th>Role</th>
+            <th>Actions</th>
         </tr>
         {% for u in users %}
             <tr>
                 <td>{{ u.id }}</td>
                 <td>{{ u.username }}</td>
+                <td>{{ u.role }}</td>
                 <td>
-                    {% if current_user.role == "ADMIN" && u.ROLE != "ADMIN" %}
-                    <a href='/account/home?del={{ u.username }}' class="btn btn-secondary text-white">&times;</button>
+                    {% if current_user.role == role.ADMIN %}
+                    <a href="{{ url_for('account_app.delete_user', username=u.username) }}" class="btn btn-secondary text-white">&times;</button>
                     {% endif %}
                 </td>
             </tr>

@@ -1,0 +1,18 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+
+    <h2>{% block title %}Delete confirmation{% endblock %}</h2>
+    <br>
+    <form method="post" autocomplete="off">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
+        <p>Are you sure? the <b>{{ username }}</b> account will be deleted!</p>
+
+        <button class="btn btn-outline-dark w-25" type="submit">Delete</button>
+        <a href="{{ url_for('account_app.home') }}">
+            <button class="btn btn-outline-secondary w-25" type="button" class="btn-cancel">Cancel</button>
+        </a>
+    </form>
+    
+{% endblock %}

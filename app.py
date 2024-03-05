@@ -26,7 +26,7 @@ csrf = CSRFProtect(app)
 # lazy imports
 from auth.loaders import load_user
 from cli_cmds import seed_cli
-from controllers import account
+from routes import account
 
 # blueprints
 app.register_blueprint(account.account_app, url_prefix=BASE_ROUTE+"/account")
@@ -43,10 +43,10 @@ def index():
 @app.errorhandler(401)
 def custom_401(error):
     flash("Need login", "failed")
-    return redirect(url_for("account_app.sign_in"))
+    return redirect(url_for("account_app.sign_in")), 401
 
 
 @app.errorhandler(404)
 def custom_404(error):
-    return render_template('error/404.jinja2', error=error)
+    return render_template('error/404.jinja2', error=error), 404
 

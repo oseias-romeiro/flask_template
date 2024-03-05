@@ -9,6 +9,8 @@ class Role(enum.Enum):
     ADMIN = 1
     USER = 0
 
+    def __str__(self) -> str: return self.name
+
 class User(UserMixin, db.Model):
     __tablename__ = "users"
 
