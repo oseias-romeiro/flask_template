@@ -2,7 +2,7 @@
 
 This is a template for a Flask web application with blueprints, authentication management, and a SQLite database. It provides a basic structure and functionality that can be customized to fit your specific needs.
 
-- Try: [flasktemplate.oseiasromeiro.repl.co](https://flasktemplate.oseiasromeiro.repl.co/)
+- Try: [oseias-romeiro.alwaysdata.net/flask_template](http://oseias-romeiro.alwaysdata.net/flask_template/)
 
 ## Directory Structure
 
