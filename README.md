@@ -1,4 +1,4 @@
-# Basic Flask Template
+# Flask Template
 
 This is a template for a Flask web application with blueprints, authentication management, and a SQLite database. It provides a basic structure and functionality that can be customized to fit your specific needs.
 
