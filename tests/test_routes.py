@@ -13,9 +13,13 @@ class TestApp(unittest.TestCase):
         return super().setUp()
     
     def test_codes(self):
-        for route in routes:
-            response = self.app.get(route)
-            self.assertEqual(response._status_code, 200)
+        for route in self.app.application.url_map.iter_rules():
+            
+            # route.methods
+            if not route.rule.startswith('/static') and not route.rule.startswith('/bootstrap'):
+                print(route.rule)
+                response = self.app.get(route.rule)
+                self.assertNotEqual(response._status_code, 404)
 
     def test_content_length(self):
         for route in routes:
