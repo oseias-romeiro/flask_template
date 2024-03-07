@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
     id:Mapped[int] = mapped_column(Integer, primary_key=True)
     username = mapped_column(String(30), nullable=False, unique=True)
     email = mapped_column(String(80), nullable=False, unique=True)
-    password = mapped_column(String(30), nullable=False)
+    password = mapped_column(String(255), nullable=False)
     role = mapped_column(Enum(Role), default=Role.USER)
     createAt = mapped_column(DateTime, default=datetime.now())
     updateAt = mapped_column(DateTime, default=datetime.now())

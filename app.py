@@ -26,10 +26,11 @@ csrf = CSRFProtect(app)
 # lazy imports
 from auth.loaders import load_user
 from cli_cmds import seed_cli
-from routes import account
+from routes import account, admin
 
 # blueprints
 app.register_blueprint(account.account_app, url_prefix=BASE_ROUTE+"/account")
+app.register_blueprint(admin.admin_app, url_prefix=BASE_ROUTE+"/admin")
 
 # cli
 app.cli.add_command(seed_cli)

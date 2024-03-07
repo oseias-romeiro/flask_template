@@ -35,10 +35,20 @@ def deleteUser(username: str) -> User:
 def getUsersAll(limit=10, offset=0) -> list[User]:
     return db.session.query(User).limit(limit).offset(offset).all()
 
-def editUser(username, email, password) -> User:
-    user = getUserByUsername(username)
-    user.username = username
-    user.email = email
+def editUser(id, username, email, password) -> User:
+    user = getUserById(id)
+    if verifyPassword(user.password, password):
+        user.username = username
+        user.email = email
+        user.updateAt = datetime.now()
+        db.session.commit()
+    else:
+        raise Exception("Password incorrect")
+
+    return user
+
+def changePassword(id, password) -> User:
+    user = getUserById(id)
     user.password = bcrypt.generate_password_hash(password)
     user.updateAt = datetime.now()
 
@@ -51,3 +61,5 @@ def getUserByEmail(email: str) -> User:
         email=email
     ).first()
 
+def getUserById(id: int) -> User:
+    return db.session.query(User).get(id)

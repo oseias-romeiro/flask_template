@@ -1,36 +1,17 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-    <h2>
+    <h2 class="m-5">
         {% block title %}Wellcome{% endblock %}, {{ current_user.username }}.
     </h2>
 
-    <a href="{{ url_for('account_app.log_out') }}" class="btn btn-outline-dark">Logout</a>
-    <a href="{{ url_for('account_app.profile_view') }}" class="btn btn-outline-secondary">Profile</a>
-
-    <br><br>
-
-    <hr>
-    <br>
-    <table class="table table-dark">
-        <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>Role</th>
-            <th>Actions</th>
-        </tr>
-        {% for u in users %}
-            <tr>
-                <td>{{ u.id }}</td>
-                <td>{{ u.username }}</td>
-                <td>{{ u.role }}</td>
-                <td>
-                    {% if current_user.role == role.ADMIN %}
-                    <a href="{{ url_for('account_app.delete_user', username=u.username) }}" class="btn btn-secondary text-white">&times;</button>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="mb-5">
+        <a href="{{ url_for('account_app.log_out') }}" class="btn btn-outline-dark">Logout</a>
+        <a href="{{ url_for('account_app.profile_view') }}" class="btn btn-outline-dark">Profile</a>
+        {% if current_user.role == role.ADMIN %}
+            <a href="{{ url_for('admin_app.panel') }}" class="btn btn-outline-dark">Admin Panel</a>
+        {% endif %}
+    </div>
+    
 
 {% endblock %}

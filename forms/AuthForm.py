@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, HiddenField
 from wtforms.validators import input_required, email, equal_to, regexp
 
 
@@ -20,6 +20,13 @@ class SignUpForm(FlaskForm):
         )
     ])
     confirm = PasswordField("Retype password")
+
+class EditUserForm(FlaskForm):
+    id = HiddenField("Id")
+    username = StringField("Username", validators=[input_required()])
+    email = StringField("Email", validators=[email('digit a valid email address')])
+    password = PasswordField("Password")
+
 
 class ChangePasswordForm(FlaskForm):
     old_password = PasswordField("Old Password", validators=[input_required()])

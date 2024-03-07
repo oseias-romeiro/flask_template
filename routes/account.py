@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, request, redirect, flash, url_for
 from flask_login import login_user, logout_user, login_required, current_user
 
 from models.User import Role
-from forms.AuthForm import SignInForm, SignUpForm, ForgetPasswordForm
-from controller.account import getUserByUsername, verifyPassword, updateLastLogin, createUser, deleteUser, getUsersAll, editUser, getUserByEmail
+from forms.AuthForm import SignInForm, SignUpForm, EditUserForm, ForgetPasswordForm, ChangePasswordForm
+from controller.account import getUserByUsername, verifyPassword, updateLastLogin, createUser, deleteUser, editUser, getUserByEmail, changePassword
 from controller.wraps import admin_required
 
 account_app = Blueprint("account_app", __name__)
@@ -54,12 +54,10 @@ def sign_up():
 @account_app.route("/home", methods=["GET"])
 @login_required
 def home():
-    users = getUsersAll()
-    return render_template("account/home.jinja2", current_user=current_user, users=users, role=Role)
+    return render_template("account/home.jinja2", current_user=current_user, role=Role)
 
 @account_app.route("/<username>/delete")
 @login_required
-@admin_required
 def delete_user_view(username):
     return render_template("account/delete.jinja2", username=username)
 
@@ -76,7 +74,8 @@ def delete_user(username):
 @account_app.route("/profile", methods=["GET"])
 @login_required
 def profile_view():
-    form = SignUpForm()
+    form = EditUserForm()
+    form.id.data = current_user.id
     form.username.data = current_user.username
     form.email.data = current_user.email
 
@@ -85,11 +84,13 @@ def profile_view():
 @account_app.route("/profile", methods=["POST"])
 @login_required
 def profile():
-    form = SignUpForm()
+    form = EditUserForm()
 
     if form.validate_on_submit():
         try:
-            editUser(form.username.data, form.email.data, form.password.data)
+            if current_user.id != int(form.id.data): raise Exception("Unauthorized")
+
+            editUser(form.id.data, form.username.data, form.email.data, form.password.data)
 
             flash("User edited", "success")
             return redirect(url_for("account_app.home"))
@@ -118,6 +119,28 @@ def forgot_password():
         flash("Email not found", "danger")
         return redirect(url_for("account_app.forget_password_view"))
     
+@account_app.route("/change_password", methods=["GET"])
+@login_required
+def change_password_view():
+    form = ChangePasswordForm()
+    return render_template("account/change_password.jinja2", form=form)
+
+@account_app.route("/change_password", methods=["POST"])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+
+    if form.validate_on_submit():
+        if verifyPassword(current_user.password, form.old_password.data):
+            changePassword(current_user.id, form.new_password.data)
+            flash("Password changed", "success")
+            return redirect(url_for("account_app.home"))
+        else:
+            flash("Invalid inputs", "danger")
+            return redirect(url_for("account_app.change_password_view"))
+    else:
+        flash(list(form.errors.items())[0][1][0], 'danger')
+        return redirect(url_for("account_app.change_password_view"))
 
 @account_app.route("/logout", methods=["GET"])
 @login_required

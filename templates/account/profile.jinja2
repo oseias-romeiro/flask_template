@@ -6,6 +6,8 @@
     <form method="post" autocomplete="off">
         {{ form.csrf_token }}
 
+        {{ form.id }}
+
         {{ form.username.label(class="d-block text-start") }}
         {{ form.username(class="form-control") }}<br>
 
@@ -15,13 +17,15 @@
         {{ form.password.label(class="d-block text-start") }}
         {{ form.password(class="form-control") }}<br>
 
-        {{ form.confirm.label(class="d-block text-start") }}
-        {{ form.confirm(class="form-control") }}<br>
         <br>
-        <button class="btn btn-outline-dark" type="submit">Edit</button>
+        <button class="btn btn-outline-dark w-25" type="submit">Edit</button>
         <a href="{{ url_for('account_app.home') }}">
-            <button class="btn btn-outline-secondary" type="button" class="btn-cancel">Cancel</button>
+            <button class="btn btn-outline-secondary w-25" type="button" class="btn-cancel">Cancel</button>
         </a>
+        <br/>
+        <a href="{{ url_for('account_app.change_password_view') }}">Change password</a>
+        <br/>
+        <a href="{{ url_for('account_app.delete_user_view', username=current_user.username) }}">Delete account</a>
     </form>
 
 {% endblock %}
