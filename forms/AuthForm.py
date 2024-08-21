@@ -10,7 +10,7 @@ class SignInForm(FlaskForm):
 
 class SignUpForm(FlaskForm):
     username = StringField("Username", validators=[input_required()])
-    email = StringField("Email", validators=[email('digit a valid email address')])
+    email = StringField("Email", validators=[email('Digit a valid email address')])
     password = PasswordField("Password", validators=[
         input_required(),
         equal_to('confirm', 'Passwords must match'),
@@ -19,7 +19,7 @@ class SignUpForm(FlaskForm):
             message='Password must contain at least 8 characteres and one digit, one uppercase letter ad one special symbol'
         )
     ])
-    confirm = PasswordField("Retype password")
+    confirm = PasswordField("Retype")
 
 class EditUserForm(FlaskForm):
     id = HiddenField("Id")
@@ -29,8 +29,8 @@ class EditUserForm(FlaskForm):
 
 
 class ChangePasswordForm(FlaskForm):
-    old_password = PasswordField("Old Password", validators=[input_required()])
-    new_password = PasswordField("New Password", validators=[
+    old_password = PasswordField("Old", validators=[input_required()])
+    new_password = PasswordField("New", validators=[
         input_required(),
         equal_to('confirm', 'Passwords must match'),
         regexp(
@@ -38,7 +38,7 @@ class ChangePasswordForm(FlaskForm):
             message='Password must contain at least 8 characteres and one digit, one uppercase letter ad one special symbol'
         )
     ])
-    confirm = PasswordField("Retype password")
+    confirm = PasswordField("Retype")
 
 class ForgetPasswordForm(FlaskForm):
     email = StringField("Email", validators=[input_required(), email('digit a valid email address')])

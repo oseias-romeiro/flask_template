@@ -24,3 +24,4 @@ class User(UserMixin, db.Model):
     lastLogin = mapped_column(DateTime, default=datetime.now())
 
     def __repr__(self): return f"user ({self.id}, {self.username})"
+    def toDict(self): return {c.name: getattr(self, c.name) for c in self.__table__.columns}

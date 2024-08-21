@@ -2,14 +2,18 @@
 
 {% block content %}
 
-    <h2>{% block title %}Flask template{% endblock %}</h2>
+    <h2 style="text-decoration: underline;">{% block title %}Flask Template{% endblock %}</h2>
     <br>
-    <a href="{{ url_for('account_app.sign_in_view') }}" class="btn btn-outline-dark">Sign in</a>
+    <div style="margin: 0 auto; max-width: 500px;">
+        <p>This project offers a well-structured template for building Flask applications that include a robust authentication system and fine-grained role permissions control.</p>
+        <p>This template is designed to streamline development and ensure that your Flask applications are built on a solid, scalable, and secure foundation.</p>
+    </div>
+
+    <a href="{{ url_for('public_app.sign_in_view') }}" class="btn btn-dark " style="min-width: 200px;">Sign in</a>
 
     {% if user_authed %}
     <a href="{{ url_for('account_app.home') }}" style="margin-left: 10px;">Home</a>
     {% endif %}
     <br>
-    <img src="{{ url_for('static', filename='media/flask-logo.png') }}" class="img-fluid" style="padding-top: 10%;">
     
 {% endblock %}

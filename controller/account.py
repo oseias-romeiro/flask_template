@@ -63,3 +63,9 @@ def getUserByEmail(email: str) -> User:
 
 def getUserById(id: int) -> User:
     return db.session.query(User).get(id)
+
+def changeRole(username: str, role: int) -> User:
+    user = getUserByUsername(username)
+    user.role = role
+    db.session.commit()
+    return user

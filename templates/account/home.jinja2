@@ -6,11 +6,26 @@
     </h2>
 
     <div class="mb-5">
-        <a href="{{ url_for('account_app.log_out') }}" class="btn btn-outline-dark">Logout</a>
-        <a href="{{ url_for('account_app.profile_view') }}" class="btn btn-outline-dark">Profile</a>
-        {% if current_user.role == role.ADMIN %}
-            <a href="{{ url_for('admin_app.panel') }}" class="btn btn-outline-dark">Admin Panel</a>
-        {% endif %}
+        
+        <div class="row">
+            <div class="col-6">
+                <div class="card mt-2">
+                    <a href="{{ url_for('account_app.profile_view') }}" class="btn btn-dark" style="min-height: 100px; display: flex; align-items: center; justify-content: center;">Profile</a>
+                </div>
+            </div>
+            <div class="col-6 mt-2">
+                <div class="card">
+                    <a href="{{ url_for('account_app.log_out') }}" class="btn btn-dark" style="min-height: 100px; display: flex; align-items: center; justify-content: center;">Logout</a>
+                </div>
+            </div>
+            <div class="col-6 mt-2">
+                {% if current_user.role == role.ADMIN %}
+                    <div class="card">
+                        <a href="{{ url_for('admin_app.panel') }}" class="btn btn-dark" style="min-height: 100px; display: flex; align-items: center; justify-content: center;">Admin Panel</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
     
 

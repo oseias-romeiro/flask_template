@@ -10,7 +10,7 @@ class Config(object):
     SQLALCHEMY_ECHO = os.environ.get("SQLALCHEMY_ECHO", False) # Print in console all SQL commands
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")# mysql://user@localhost/foo
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(basedir, 'db.sqlite3')}"

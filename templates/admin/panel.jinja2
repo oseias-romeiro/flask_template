@@ -17,9 +17,20 @@
             <tr>
                 <td>{{ u.id }}</td>
                 <td>{{ u.username }}</td>
-                <td>{{ u.role }}</td>
                 <td>
-                    <a href="{{ url_for('account_app.delete_user', username=u.username) }}" class="btn btn-secondary text-white">&times;</button>
+                    <form id="userForm_{{ u.username }}" action="{{ url_for('admin_app.user_role') }}" method="get" onchange="changeRole('{{ u.username }}')">
+                        <input type="hidden" name="username" value="{{ u.username }}">
+                        <select name="role" class="form-select" >
+                            {% for r in roles %}
+                                <option value="{{ r }}" {% if u.role == r %}  selected {% endif %}>{{ r }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <a href="{{ url_for('account_app.delete_user', username=u.username) }}" class="btn btn-secondary text-white">
+                        <i class="fa-solid fa-trash" aria-label="delete user"></i>
+                    </a>
                 </td>
             </tr>
         {% endfor %}

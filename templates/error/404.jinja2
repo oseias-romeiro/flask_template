@@ -1,0 +1,10 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+
+    <h2 style="text-decoration: underline;">{% block title %}404 Page not Found{% endblock %} :(</h2>
+    <br>
+
+    <a href="{{ url_for('public_app.index') }}" class="btn btn-dark " style="min-width: 200px;">Home</a>
+    
+{% endblock %}

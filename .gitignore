@@ -11,6 +11,7 @@ poetry.lock
 db.sqlite3
 db.test.sqlite3
 migrations/
+db
 
 # secret
 *.env

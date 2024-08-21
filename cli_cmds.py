@@ -5,7 +5,6 @@ from app import db, bcrypt
 from models.User import User
 
 
-
 users = json.load(open("seeds/users.json"))
 
 seed_cli = AppGroup("seed")

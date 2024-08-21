@@ -1,6 +1,11 @@
 
 body {
     font-family: "Times New Roman", Times, serif;
+    background-image: url("/static/media/flask-logo.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: auto;
 }
 
 .btn-close {
@@ -9,12 +14,17 @@ body {
 }
 
 a {
-    color: black
+    color: white;
 }
 a:hover {
     color: gray;
+    font-weight: bold;
 }
 
+button:hover {
+    font-weight: bolder;
+    font-size: large;
+}
 
 table {
     margin-left: auto;
@@ -22,3 +32,10 @@ table {
     max-width: 500px;
 }
 
+@media (min-width: 500px) {
+    .label {
+        display: flex;
+        justify-content: end;
+        padding-top: 6px;
+    }
+}

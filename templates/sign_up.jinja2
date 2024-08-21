@@ -1,0 +1,88 @@
+{% extends "base.jinja2" %}
+{% from 'bootstrap5/form.html' import render_hidden_errors %}
+
+{% block content %}
+
+    <h2>{% block title %}Sign up{% endblock %}</h2>
+    <br>
+    <form method="post" autocomplete="off" novalidate style="max-width: 600px; margin: 0 auto;">
+        {{ render_hidden_errors(form) }}
+        {{ form.csrf_token }}
+
+        <div class="row">
+            <div class="col-sm-12 col-md-2 label">
+                {{ form.username.label(class="d-block text-start") }}
+            </div>
+            <div class="col-sm-12 col-md-10">
+                {{ form.username(class="form-control") }}
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages and messages[0][0] == 'errors' %}
+                    <small class="text-white d-block text-start"><ul>
+                        {% for m in messages[0][1]['username'] %}
+                            <li>{{ m }}</li>
+                        {% endfor %}
+                    </ul></small>
+                {% else %}<br>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12 col-md-2 label">
+                {{ form.email.label(class="d-block text-start") }}
+            </div>
+            <div class="col-sm-12 col-md-10">
+                {{ form.email(class="form-control") }}
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages and messages[0][0] == 'errors' %}
+                    <small class="text-white d-block text-start"><ul>
+                        {% for m in messages[0][1]['email'] %}
+                            <li>{{ m }}</li>
+                        {% endfor %}
+                    </ul></small>
+                {% else %}<br>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12 col-md-2 label">
+                {{ form.password.label(class="d-block text-start") }}
+            </div>
+            <div class="col-sm-12 col-md-10">
+                {{ form.password(class="form-control") }}
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages and messages[0][0] == 'errors' %}
+                    <small class="text-white d-block text-start"><ul>
+                        {% for m in messages[0][1]['password'] %}
+                            <li>{{ m }}</li>
+                        {% endfor %}
+                    </ul></small>
+                {% else %}<br>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        
+        <br>
+        <div class="row">
+            <div class="col-sm-12 col-md-2 label">
+                {{ form.confirm.label(class="d-block text-start") }}
+            </div>
+            <div class="col-sm-12 col-md-10">
+                {{ form.confirm (class="form-control")}}
+            </div>
+        </div>
+        <br>
+        <button class="btn btn-dark w-25" type="submit">Sign up</button>
+        <a href="{{ url_for('public_app.sign_in') }}">
+            <button class="btn btn-secondary w-25" type="button" class="btn-cancel">Cancel</button>
+        </a>
+    </form>
+
+{% endblock %}

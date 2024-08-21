@@ -3,24 +3,40 @@
 {% block content %}
     <h2>{% block title %}Edit{% endblock %} profile</h2>
     <br>
-    <form method="post" autocomplete="off">
+    <form method="post" autocomplete="off" style="max-width: 600px; margin: 0 auto;">
         {{ form.csrf_token }}
 
         {{ form.id }}
 
-        {{ form.username.label(class="d-block text-start") }}
-        {{ form.username(class="form-control") }}<br>
-
-        {{ form.email.label(class="d-block text-start") }}
-        {{ form.email(class="form-control") }}<br>
-
-        {{ form.password.label(class="d-block text-start") }}
-        {{ form.password(class="form-control") }}<br>
+        <div class="row mt-2">
+            <div class="col-sm-12 col-md-3 label">
+                {{ form.username.label(class="d-block text-start") }}
+            </div>
+            <div class="col-sm-12 col-md-7">
+                {{ form.username(class="form-control") }}
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12 col-md-3 label">
+                {{ form.email.label(class="d-block text-start") }}
+            </div>
+            <div class="col-sm-12 col-md-7">
+                {{ form.email(class="form-control") }}
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12 col-md-3 label">
+                {{ form.password.label(class="d-block text-start") }}
+            </div>
+            <div class="col-sm-12 col-md-7">
+                {{ form.password(class="form-control") }}<br>
+            </div>
+        </div>
 
         <br>
-        <button class="btn btn-outline-dark w-25" type="submit">Edit</button>
+        <button class="btn btn-dark w-25" type="submit">Edit</button>
         <a href="{{ url_for('account_app.home') }}">
-            <button class="btn btn-outline-secondary w-25" type="button" class="btn-cancel">Cancel</button>
+            <button class="btn btn-secondary w-25" type="button" class="btn-cancel">Cancel</button>
         </a>
         <br/>
         <a href="{{ url_for('account_app.change_password_view') }}">Change password</a>

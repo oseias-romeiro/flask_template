@@ -7,23 +7,27 @@
     <title>{% block title %}{% endblock %}</title>
     <!-- Bootstrap -->
     {{ bootstrap.load_css() }}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="shortcut icon" href="/static/media/flask-icon.png" type="image/png">
 </head>
 <body>
-    <div class="container vh-100 d-flex justify-content-center align-items-center text-center">
-        <div class="card" style="width: 50rem;">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                <div id="alert_signup" class="alert alert-{{ messages[0][0] }}">
-                    {{ messages[0][1] }}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages and messages[0][0] != 'errors' %}
+        <div id="alert_signup" class="alert alert-{{ messages[0][0] }} text-center">
+            
+            {{ messages[0][1] }}
 
-                    <button onclick="close_alert()" type="button" class="btn-close"></button>
-                </div>
-                {% endif %}
-            {% endwith %}
-            <div class="card-body">
+            <button onclick="close_alert()" type="button" class="btn-close"></button>
+        </div>
+        {% endif %}
+    {% endwith %}
+    <div class="container vh-100 d-flex justify-content-center align-items-center text-center">
+        <div class="card" style="width: 50rem; border: 0; min-height: 90vh; background-color: rgba(0, 0, 0, 0.700); min-width: 80vw;">
+            
+            <div class="card-body" style="margin-top: 80px; color: white;">
                 {% block content %}{% endblock %}
             </div>
         </div>
