@@ -2,6 +2,8 @@
 
 This project offers a well-structured template for building Flask applications that include a robust authentication system and fine-grained role permissions control. It provides a best-practice foundation for Flask development, integrating essential extensions such as Flask-Login for user session management, Flask-WTF for form handling and CSRF protection, Flask-SQLAlchemy for database management, and Flask-Migrate for seamless database migrations. This template is designed to streamline development and ensure that your Flask applications are built on a solid, scalable, and secure foundation.
 
+![sample](./docs/sample.gif)
+
 ## Directory Structure
 
 The directory structure for this template is as follows:
